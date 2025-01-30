@@ -5,7 +5,7 @@ The **Word of the Day API** provides a new English word each day, including its 
 
 ## Base URL
 ```
-https://your-api-url.com/api/v1
+https://wordoftheday.thich.in/api/v1
 ```
 
 ## Endpoints

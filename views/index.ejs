@@ -1,12 +1,132 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hẹn Lịch Chạy</title>
+    <title>Word of the Day API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lịch chạy công việc</h1>
-   
+    <h1>Word of the Day API Documentation</h1>
+
+    <h2>Overview</h2>
+    <p>The <strong>Word of the Day API</strong> provides a new English word each day, including its meaning, part of speech, pronunciation files, and example usage. The data is sourced from the Oxford Dictionary, ensuring accuracy and high-quality content.</p>
+
+    <h2>Base URL</h2>
+    <pre>https://wordoftheday.thich.in/api/v1</pre>
+
+    <h2>Endpoints</h2>
+
+    <h3>1. Get Word of the Day</h3>
+    <p><strong>Endpoint:</strong></p>
+    <pre>GET /word-of-the-day</pre>
+
+    <p><strong>Description:</strong></p>
+    <p>Retrieves the latest word of the day.</p>
+
+    <p><strong>Response Example:</strong></p>
+    <pre><code>{
+  "word": "serendipity",
+  "part_of_speech": "noun",
+  "definition": "The occurrence of events by chance in a happy or beneficial way.",
+  "us_pronunciation_file": "https://example.com/us-serendipity.mp3",
+  "uk_pronunciation_file": "https://example.com/uk-serendipity.mp3",
+  "example": "Finding that book was pure serendipity!"
+}</code></pre>
+
+    <h3>2. Get Word by Date</h3>
+    <p><strong>Endpoint:</strong></p>
+    <pre>GET /word-of-the-day/{date}</pre>
+
+    <p><strong>Description:</strong></p>
+    <p>Retrieves the word of the day for a specific date.</p>
+
+    <p><strong>Parameters:</strong></p>
+    <ul>
+        <li><code>date</code> (string, required): Date in <code>YYYY-MM-DD</code> format.</li>
+    </ul>
+
+    <p><strong>Example Request:</strong></p>
+    <pre>GET /word-of-the-day/2024-01-30</pre>
+
+    <p><strong>Response Example:</strong></p>
+    <pre><code>{
+  "word": "ephemeral",
+  "part_of_speech": "adjective",
+  "definition": "Lasting for a very short time.",
+  "us_pronunciation_file": "https://example.com/us-ephemeral.mp3",
+  "uk_pronunciation_file": "https://example.com/uk-ephemeral.mp3",
+  "example": "The beauty of the sunset was ephemeral but breathtaking."
+}</code></pre>
+
+    <h3>3. Get Random Word</h3>
+    <p><strong>Endpoint:</strong></p>
+    <pre>GET /random-word</pre>
+
+    <p><strong>Description:</strong></p>
+    <p>Retrieves a random word from the database.</p>
+
+    <p><strong>Response Example:</strong></p>
+    <pre><code>{
+  "word": "lucid",
+  "part_of_speech": "adjective",
+  "definition": "Expressed clearly; easy to understand.",
+  "us_pronunciation_file": "https://example.com/us-lucid.mp3",
+  "uk_pronunciation_file": "https://example.com/uk-lucid.mp3",
+  "example": "She gave a lucid explanation of the complex topic."
+}</code></pre>
+
+    <h2>Error Responses</h2>
+    <table>
+        <tr>
+            <th>Status Code</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td>400</td>
+            <td>Bad Request – Invalid input or missing parameters.</td>
+        </tr>
+        <tr>
+            <td>404</td>
+            <td>Not Found – No word found for the given date.</td>
+        </tr>
+        <tr>
+            <td>500</td>
+            <td>Internal Server Error – An unexpected error occurred.</td>
+        </tr>
+    </table>
+
+    <h2>Authentication</h2>
+    <p>This API is <strong>public</strong> and does not require authentication at this time.</p>
+
+    <h2>Deployment & Contribution</h2>
+    <p>The API source code is available at: <a href="https://github.com/nguyentuan1696/word-of-the-day-api">GitHub Repository</a></p>
+    <p>If you would like to contribute, submit a pull request or open an issue in the repository.</p>
+
+    <h2>License</h2>
+    <p>This project is licensed under the MIT License.</p>
 </body>
 </html>
