@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 const scheduleRule = new schedule.RecurrenceRule();
 scheduleRule.tz = 'Asia/Ho_Chi_Minh';
 scheduleRule.hour = 0;
-scheduleRule.minute = 1;
+scheduleRule.minute = 18;
 
 // Function to fetch dictionary data
 async function fetchDictionaryData() {
