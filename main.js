@@ -2,9 +2,12 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const schedule = require('node-schedule');
-
+const sql = require('./lib')
 const app = express();
 const port = 3000;
+
+// Cấu hình EJS làm template engine
+app.set('view engine', 'ejs');
 
 // Set timezone for Vietnam (GMT+7)
 const scheduleRule = new schedule.RecurrenceRule();
@@ -28,10 +31,12 @@ async function fetchDictionaryData() {
         const html = response.data;
         const $ = cheerio.load(html)
         const word = $('.headword div').text().trim();
-        const type = $(".pos").text().trim()
+        const partOfSpeech = $(".pos").text().trim()
         const usPronunciation = $('#us_pron').attr('data-src-mp3');
         const ukPronunciation = $('#uk_pron').attr('data-src-mp3');
-        console.log(ukPronunciation); 
+
+        await sql`INSERT INTO word_of_the_day (word, part_of_speech, us_pronunciation_file, uk_pronunciation_file) VALUES (${word}, ${partOfSpeech}, ${usPronunciation}, ${ukPronunciation})`
+
         console.log('Data fetched successfully at:', new Date().toLocaleString());
         return null;
     } catch(err) {
@@ -53,7 +58,7 @@ schedule.scheduleJob(scheduleRule, async () => {
     }
 });
 
-app.get("/", async (req, res) => {
+app.get("/word", async (req, res) => {
     try {
         // If no data exists, fetch for the first time
         if (!latestData) {
@@ -72,6 +77,10 @@ app.get("/", async (req, res) => {
             message: err.message
         });
     }
+});
+
+app.get('/', (req, res) => {
+    res.render('index');
 });
 
 app.listen(port, () => {
