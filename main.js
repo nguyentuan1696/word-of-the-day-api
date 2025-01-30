@@ -62,7 +62,7 @@ app.get("/api/v1/word-of-the-day", async (req, res) => {
         
         res.status(200).json({
             data: word,
-            lastUpdated: new Date().toLocaleString()
+            last_updated: new Date().toLocaleString()
         });
 
     } catch(err) {
