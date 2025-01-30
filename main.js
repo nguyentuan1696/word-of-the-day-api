@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 const scheduleRule = new schedule.RecurrenceRule();
 scheduleRule.tz = 'Asia/Ho_Chi_Minh';
 scheduleRule.hour = 0;
-scheduleRule.minute = 18;
+scheduleRule.minute = 1;
 
 // Function to fetch dictionary data
 async function fetchDictionaryData() {
@@ -55,7 +55,7 @@ schedule.scheduleJob(scheduleRule, async () => {
     }
 });
 
-app.get("/word", async (req, res) => {
+app.get("/api/v1/word-of-the-day", async (req, res) => {
     try {
      
         const word = await sql`SELECT * from word_of_the_day ORDER BY created_at DESC LIMIT 1;`
