@@ -64,9 +64,11 @@ app.get("/word", async (req, res) => {
         if (!latestData) {
             latestData = await fetchDictionaryData();
         }
+
+        const word = await sql`SELECT * from word_of_the_day`
         
         res.status(200).json({
-            data: latestData,
+            data: word,
             lastUpdated: new Date().toLocaleString()
         });
 
