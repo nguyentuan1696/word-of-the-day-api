@@ -45,13 +45,10 @@ async function fetchDictionaryData() {
     }
 }
 
-// Store latest data
-let latestData = null;
-
 // Schedule job using scheduleRule
 schedule.scheduleJob(scheduleRule, async () => {
     try {
-        latestData = await fetchDictionaryData();
+        await fetchDictionaryData();
         console.log('Data updated successfully');
     } catch (error) {
         console.error('Error during automatic update:', error.message);
@@ -60,12 +57,8 @@ schedule.scheduleJob(scheduleRule, async () => {
 
 app.get("/word", async (req, res) => {
     try {
-        // If no data exists, fetch for the first time
-        if (!latestData) {
-            latestData = await fetchDictionaryData();
-        }
-
-        const word = await sql`SELECT * from word_of_the_day`
+     
+        const word = await sql`SELECT * from word_of_the_day ORDER BY created_at DESC LIMIT 1;`
         
         res.status(200).json({
             data: word,
