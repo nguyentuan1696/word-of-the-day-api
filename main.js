@@ -12,8 +12,8 @@ app.set('view engine', 'ejs');
 // Set timezone for Vietnam (GMT+7)
 const scheduleRule = new schedule.RecurrenceRule();
 scheduleRule.tz = 'Asia/Ho_Chi_Minh';
-scheduleRule.hour = 0;
-scheduleRule.minute = 1;
+scheduleRule.hour = 7;
+scheduleRule.minute = 0;
 
 // Function to fetch dictionary data
 async function fetchDictionaryData() {
