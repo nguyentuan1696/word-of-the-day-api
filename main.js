@@ -80,11 +80,4 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
-    // Fetch data when server starts
-    fetchDictionaryData()
-        .then(data => {
-            latestData = data;
-            console.log('Initial data fetch successful');
-        })
-        .catch(err => console.error('Initialization error:', err.message));
 });
