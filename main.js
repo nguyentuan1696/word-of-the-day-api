@@ -35,7 +35,21 @@ async function fetchDictionaryData() {
         const usPronunciation = $('#us_pron').attr('data-src-mp3');
         const ukPronunciation = $('#uk_pron').attr('data-src-mp3');
 
-        await sql`INSERT INTO word_of_the_day (word, part_of_speech, us_pronunciation_file, uk_pronunciation_file) VALUES (${word}, ${partOfSpeech}, ${usPronunciation}, ${ukPronunciation})`
+        // Kiểm tra xem từ đã tồn tại chưa
+        const existingWord = await sql`
+            SELECT * FROM word_of_the_day 
+            WHERE word = ${word}
+        `;
+
+        if (existingWord.length === 0) {
+            await sql`
+                INSERT INTO word_of_the_day (word, part_of_speech, us_pronunciation_file, uk_pronunciation_file) 
+                VALUES (${word}, ${partOfSpeech}, ${usPronunciation}, ${ukPronunciation})
+            `;
+            console.log('New word added successfully:', word);
+        } else {
+            console.log('Word already exists in database:', word);
+        }
 
         console.log('Data fetched successfully at:', new Date().toLocaleString());
         return null;
